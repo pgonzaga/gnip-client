@@ -8,7 +8,7 @@ module Gnip
         when '1.0'
           @url = "https://stream.gnip.com:443/accounts/#{client.account}/publishers/#{client.publisher}/replay/track/#{client.replay_label}.json"
         when '2.0'
-          @url = "https://gnip-stream.gnip.com/replay/powertrack/accounts/#{client.account}/publishers/#{client.publisher}/#{client.replay_label}.json"
+          @url = "https://gnip-stream.twitter.com/replay/powertrack/accounts/#{client.account}/publishers/#{client.publisher}/#{client.replay_label}.json"
         else
           raise Exception.new("version #{self.version} is not supported from this gem.")
         end
