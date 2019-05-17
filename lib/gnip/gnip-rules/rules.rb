@@ -117,7 +117,7 @@ module Gnip
         @headers ||= {
           'Content-Type' => 'application/json',
           'Accept' => 'application/json',
-          'Accept-Encoding' => 'gzip'
+          'content-encoding' => 'gzip'
         }
       end
     end
