@@ -14,7 +14,7 @@ module Gnip
           @rules_url = "https://api.gnip.com:443/accounts/#{client.account}/publishers/#{client.publisher}/#{replay ? 'replay' : 'streams'}/track/#{client.label}/rules.json"
         when '2.0'
           if replay
-            @rules_url = "https://gnip-api.twitter.com/rules/powertrack-replay/accounts/#{client.account}/publishers/#{client.publisher}/#{client.replay_label}.json"
+            @rules_url = "https://gnip-stream.gnip.com/replay/powertrack/accounts/#{client.account}/publishers/#{client.publisher}/Replay.json"
           else
             @rules_url = "https://gnip-api.twitter.com/rules/powertrack/accounts/#{client.account}/publishers/#{client.publisher}/#{client.label}.json"
           end
