@@ -27,7 +27,7 @@ module Gnip
       # Add rules to PowerTrack rules
       # rules should be an hash in the format {"rules": [{"value": "rule1", "tag": "tag1"}, {"value":"rule2"}]}"
       def add(rules)
-        response = self.class.post(rules_url, basic_auth: @auth, body: rules.to_json, headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' }, type: :json)
+        response = self.class.post(rules_url, basic_auth: @auth, body: rules.to_json, headers: headers, type: :json)
         parsed_response = safe_parsed_response(response.parsed_response)
         if parsed_response.present? && parsed_response['error'].present?
           { status: :error, code: response.response.code, error: parsed_response['error']['message'] }
@@ -54,7 +54,7 @@ module Gnip
 
       # Get the full list of rules
       def list
-        response = self.class.get(rules_url, basic_auth: @auth, headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' }, type: :json)
+        response = self.class.get(rules_url, basic_auth: @auth, headers: headers, type: :json)
         parsed_response = safe_parsed_response(response.parsed_response)
         if parsed_response.present? && parsed_response['error'].present?
           { status: :error, code: response.response.code, error: parsed_response['error']['message'] }
@@ -111,6 +111,14 @@ module Gnip
       def safe_parsed_response(parsed_response)
         ret = parsed_response.present? ? (parsed_response.is_a?(String) ? JSON.parse(parsed_response).with_indifferent_access : parsed_response) : nil
         ret
+      end
+
+      def headers
+        @headers ||= {
+          'Content-Type' => 'application/json',
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip'
+        }
       end
     end
   end
